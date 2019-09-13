@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.12/"></script>
+    <title>OER Recent Expeditions - Demonstration Map</title>
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <script>
+        require([
+            "esri/config",
+            "esri/Graphic",
+            "esri/widgets/Home",
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/symbols/PictureMarkerSymbol",
+            "esri/geometry/Point",
+            "esri/PopupTemplate"
+        ], function (
+            esriConfig,
+            Graphic, 
+            Home,
+            Map, 
+            MapView,
+            PictureMarkerSymbol,
+            Point,
+            PopupTemplate
+        ) {
+            esriConfig.request.proxyUrl = "https://maps.ngdc.noaa.gov/proxy.jsp";
+            // esriConfig.request.useProxy = true;
+            // esriConfig.request.mode = 'no-cors';
+
+            var map = new Map({
+                basemap: "oceans"
+            });
+
+            var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [-118.71511, 34.09042], // longitude, latitude
+                zoom: 3,
+            });
+            view.constraints.snapToZoom = true;
+
+            var homeWidget = new Home({
+                view: view
+            });
+            view.ui.add(homeWidget, "top-left");
+
+            const places = [
+                {title: 'Deep Connections 2019', address: '(August - September 2019)', url: 'https://oceanexplorer.noaa.gov/okeanos/explorations/ex1905/welcome.html', tags: ['all_years','2019'], lat: 42.786667, lng: -63.321172, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/ex1905.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_1.png'},
+                {title: 'Gulf of Alaska Seamounts 2019', address: '(July-August 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19gulfofalaska/welcome.html', tags: ['all_years','2019'], lat: 56.465525, lng: -146.170200, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19gulfofalaska.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_2.png'},
+                {title: 'Journey into Midnight: Light and Life Below the Twilight Zone', address: '(June 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19biolum/welcome.html', tags: ['all_years','2019'], lat: 27.854254, lng: -87.466457, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19biolum.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_3.png'},
+                {title: 'Paleolandscapes and the ca. 8,000 BP Shoreline of the Gulf of Mexico Outer Continental Shelf', address: '(June 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19paleolandscapes-gomex/welcome.html', tags: ['all_years','2019'], lat: 28.485893, lng: -95.280537, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19paleolandscapes-gomex.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_4.png'},
+                {title: 'Windows to the Deep 2019: Exploration of the Deep-sea Habitats of the Southeast United States', address: '(May - July 2019)', url: 'https://oceanexplorer.noaa.gov/okeanos/explorations/ex1903/welcome.html', tags: ['all_years','2019'], lat: 31.705387, lng: -80.214635, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/ex1903.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_5.png'},
+            ];
+
+            places.forEach (function(place) {
+                console.log(place.title);
+            });
+
+            const popupTemplate = new PopupTemplate({
+                // title: "{title}",
+                // content: [{
+                //     type: "fields",
+                //     fieldInfos: [
+                //         {
+                //             fieldName: "date"
+                //         },
+                //         {
+                //             fieldName: "url"
+                //         },
+                //         {
+                //             fieldName: "img"
+                //         }
+                //     ]}
+                // ]
+            });
+            console.log(view.popup.container);
+            popupTemplate.title = '{title}'
+            popupTemplate.content = '<div><div><img src="{img}"</div>{date}<br><a href={url}>{url}</a></div>'
+            ;
+
+            
+
+            const graphics = places.map(place => {
+                return new Graphic({
+                    geometry: {
+                        type: "point",  //autocasts as new Point()
+                        longitude: place.lng,
+                        latitude: place.lat
+                    },
+                    symbol: {
+                        type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                        url: place.icon,
+                        width: "36px",
+                        height: "36px"
+                    },
+                    attributes: {
+                        title: place.title,
+                        date: place.address,
+                        url: place.url,
+                        img: place.img
+                    },
+                    popupTemplate: popupTemplate
+                });
+            });
+            view.graphics.addMany(graphics);
+
+
+            // Get the screen point from the view's click event
+            view.on("click", function (event) {
+                var screenPoint = {
+                x: event.x,
+                y: event.y
+            };
+
+            // Search for graphics at the clicked location
+            view.hitTest(screenPoint).then(function (response) {
+            if (response.results.length) {
+                var graphic = response.results[0].graphic;
+                view.goTo({target: graphic, zoom: 5});
+
+                // TODO communication w/ DOM to select panel, item, etc.
+            }
+        });
+});
+
+        });
+    </script>
+<!-- <script id="_fed_an_ua_tag" type="text/javascript" src="/scripts/federated-analytics.js?agency=DOC&subagency=NOAA&pua=UA-41897279-1"></script> -->
+</body>
+</html>
+
