@@ -8,16 +8,7 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.12/"></script>
     <title>OER Recent Expeditions - Demonstration Map</title>
-    <style>
-        html,
-        body,
-        #viewDiv {
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="css/application.css">
 </head>
 
 <body>
@@ -64,11 +55,11 @@
             view.ui.add(homeWidget, "top-left");
 
             const places = [
-                {title: 'Deep Connections 2019', address: '(August - September 2019)', url: 'https://oceanexplorer.noaa.gov/okeanos/explorations/ex1905/welcome.html', tags: ['all_years','2019'], lat: 42.786667, lng: -63.321172, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/ex1905.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_1.png'},
-                {title: 'Gulf of Alaska Seamounts 2019', address: '(July-August 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19gulfofalaska/welcome.html', tags: ['all_years','2019'], lat: 56.465525, lng: -146.170200, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19gulfofalaska.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_2.png'},
-                {title: 'Journey into Midnight: Light and Life Below the Twilight Zone', address: '(June 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19biolum/welcome.html', tags: ['all_years','2019'], lat: 27.854254, lng: -87.466457, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19biolum.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_3.png'},
-                {title: 'Paleolandscapes and the ca. 8,000 BP Shoreline of the Gulf of Mexico Outer Continental Shelf', address: '(June 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19paleolandscapes-gomex/welcome.html', tags: ['all_years','2019'], lat: 28.485893, lng: -95.280537, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19paleolandscapes-gomex.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_4.png'},
-                {title: 'Windows to the Deep 2019: Exploration of the Deep-sea Habitats of the Southeast United States', address: '(May - July 2019)', url: 'https://oceanexplorer.noaa.gov/okeanos/explorations/ex1903/welcome.html', tags: ['all_years','2019'], lat: 31.705387, lng: -80.214635, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/ex1903.png', icon: 'https://oceanexplorer.noaa.gov/explorations/location/images/icons/marker-red_5.png'},
+                {title: 'Deep Connections 2019', address: '(August - September 2019)', url: 'https://oceanexplorer.noaa.gov/okeanos/explorations/ex1905/welcome.html', tags: ['all_years','2019'], lat: 42.786667, lng: -63.321172, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/ex1905.png', icon: 'images/icons/marker-red_1.png'},
+                {title: 'Gulf of Alaska Seamounts 2019', address: '(July-August 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19gulfofalaska/welcome.html', tags: ['all_years','2019'], lat: 56.465525, lng: -146.170200, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19gulfofalaska.png', icon: 'images/icons/marker-red_2.png'},
+                {title: 'Journey into Midnight: Light and Life Below the Twilight Zone', address: '(June 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19biolum/welcome.html', tags: ['all_years','2019'], lat: 27.854254, lng: -87.466457, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/19biolum.png', icon: 'images/icons/marker-red_3.png'},
+                {title: 'Paleolandscapes and the ca. 8,000 BP Shoreline of the Gulf of Mexico Outer Continental Shelf', address: '(June 2019)', url: 'https://oceanexplorer.noaa.gov/explorations/19paleolandscapes-gomex/welcome.html', tags: ['all_years','2019'], lat: 28.485893, lng: -95.280537, img: 'images/19paleolandscapes-gomex.png', icon: 'images/icons/marker-red_4.png'},
+                {title: 'Windows to the Deep 2019: Exploration of the Deep-sea Habitats of the Southeast United States', address: '(May - July 2019)', url: 'https://oceanexplorer.noaa.gov/okeanos/explorations/ex1903/welcome.html', tags: ['all_years','2019'], lat: 31.705387, lng: -80.214635, img: 'https://oceanexplorer.noaa.gov/explorations/location/images/ex1903.png', icon: 'images/icons/marker-red_5.png'},
             ];
 
             places.forEach (function(place) {
