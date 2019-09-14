@@ -110,6 +110,7 @@
 
         function openAccordionPanel(panelTitle) {
             console.log('inside openAccordionPanel with: ',panelTitle);
+            // $('.collapse').collapse('hide');
             places.forEach(function(place, panelIndex) {
                 if (place.title == panelTitle) {
                     console.log('showing ','collapse'+panelIndex);
@@ -245,7 +246,8 @@
 
                         // change symbol
                         resetSymbols();
-                        //graphic.symbol = selectedSymbol;
+                        $('.collapse').collapse('hide');
+                        // graphic.symbol = selectedSymbol;
                         
                         openAccordionPanel(graphic.attributes.title);
                     }
